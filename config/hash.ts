@@ -1,14 +1,14 @@
 import { defineConfig, drivers } from '@adonisjs/core/hash'
 
+const SALT_ROUNDS = process.env.HASH_SALT_ROUNDS || 10
+
 const hashConfig = defineConfig({
-  default: 'scrypt',
+  default: 'bcrypt',
 
   list: {
-    scrypt: drivers.scrypt({
-      cost: 16384,
-      blockSize: 8,
-      parallelization: 1,
-      maxMemory: 33554432,
+    bcrypt: drivers.bcrypt({
+      rounds: Number(SALT_ROUNDS),
+      saltSize: 16,
     }),
   },
 })

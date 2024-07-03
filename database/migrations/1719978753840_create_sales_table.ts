@@ -31,6 +31,10 @@ export default class Sales extends BaseSchema {
         .onDelete('CASCADE')
         .onUpdate('CASCADE') // Relacionamento com a tabela products
 
+      table.decimal('total_price', 10, 2).notNullable()
+
+      table.integer('total_quantity').notNullable()
+
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
