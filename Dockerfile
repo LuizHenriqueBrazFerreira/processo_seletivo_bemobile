@@ -1,29 +1,18 @@
-FROM node:20.12.2-alpine3.18 as base
+FROM node:20-alpine
 
-# All deps stage
-FROM base as deps
-WORKDIR /app
-ADD package.json package-lock.json ./
-RUN npm ci
+## Cria a pasta do container e copia para dentro dela o package*.json
 
-# Production only deps stage
-FROM base as production-deps
-WORKDIR /app
-ADD package.json package-lock.json ./
-RUN npm ci --omit=dev
+WORKDIR /backend
 
-# Build stage
-FROM base as build
-WORKDIR /app
-COPY --from=deps /app/node_modules /app/node_modules
-ADD . .
-RUN node ace build
+COPY package*.json .
 
-# Production stage
-FROM base
-ENV NODE_ENV=production
-WORKDIR /app
-COPY --from=production-deps /app/node_modules /app/node_modules
-COPY --from=build /app/build /app
-EXPOSE 8080
-CMD ["node", "./bin/server.js"]
+RUN npm install
+## Copia os demais arquivos para o container
+
+COPY . .
+
+EXPOSE 3001
+
+ENTRYPOINT [ "npm", "run" ]
+
+CMD [ "dev" ]
