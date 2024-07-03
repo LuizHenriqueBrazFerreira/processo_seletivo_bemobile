@@ -14,6 +14,12 @@ export default class Sale extends BaseModel {
   @column()
   declare productId: number
 
+  @column()
+  declare totalPrice: number
+
+  @column()
+  declare totalQuantity: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

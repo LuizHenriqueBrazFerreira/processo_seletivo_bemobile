@@ -11,7 +11,7 @@ export default class Client extends BaseModel {
   declare name: string
 
   @column()
-  declare cpf: number
+  declare cpf: string
 
   @column()
   declare address: string
@@ -28,7 +28,7 @@ export default class Client extends BaseModel {
   declare sales: HasMany<typeof Sale>
 
   @column()
-  declare phoneNumber: number
+  declare phoneNumber: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

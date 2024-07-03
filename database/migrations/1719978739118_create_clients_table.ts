@@ -8,11 +8,11 @@ export default class Clients extends BaseSchema {
       table.increments('id')
 
       table.string('name', 20).notNullable()
-      table.integer('cpf', 11).notNullable()
+      table.string('cpf', 20).notNullable()
       table.string('address', 20).notNullable()
       table.string('city', 20).notNullable()
       table.string('country', 8).notNullable()
-      table.integer('phoneNumber', 12).notNullable()
+      table.string('phone_number', 20).notNullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

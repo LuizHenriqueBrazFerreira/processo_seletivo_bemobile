@@ -11,12 +11,14 @@
     "test": "node ace test",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "start:db": "node ace serve --hmr && node ace migration:run && node ace db:seed",
     "typecheck": "tsc --noEmit"
   },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
     "#exceptions/*": "./app/exceptions/*.js",
     "#models/*": "./app/models/*.js",
+    "#enum/*": "./enum/*.js",
     "#mails/*": "./app/mails/*.js",
     "#services/*": "./app/services/*.js",
     "#listeners/*": "./app/listeners/*.js",
@@ -56,6 +58,7 @@
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^21.1.0",
     "@vinejs/vine": "^2.1.0",
+    "bcrypt": "^5.1.1",
     "luxon": "^3.4.4",
     "mysql2": "^3.10.2",
     "reflect-metadata": "^0.2.2"
