@@ -60,6 +60,7 @@ export default class extends BaseSeeder {
         description: 'Desktop description',
         price: 300.0,
         quantity: 10,
+        available: false,
       },
     ])
 

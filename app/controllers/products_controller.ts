@@ -2,9 +2,7 @@ import Product from '#models/product'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ProductsController {
-  /**
-   * Display a list of resource
-   */
+  // Busca todos os produtos
   async index({ response }: HttpContext) {
     try {
       const allProducts = await Product.query()
@@ -16,9 +14,7 @@ export default class ProductsController {
     }
   }
 
-  /**
-   * Display form to create a new record
-   */
+  // Cria um novo produto
   async create({ request, response }: HttpContext) {
     try {
       const productData = request.body()
@@ -29,9 +25,7 @@ export default class ProductsController {
     }
   }
 
-  /**
-   * Show individual record
-   */
+  // Mostra um produto em especifico
   async show({ params, response }: HttpContext) {
     try {
       const product = await Product.query()
@@ -44,9 +38,7 @@ export default class ProductsController {
     }
   }
 
-  /**
-   * Handle form submission for the edit action
-   */
+  // Atualiza os dados de um produto
   async update({ params, request, response }: HttpContext) {
     try {
       const productData = request.body()
@@ -61,19 +53,19 @@ export default class ProductsController {
     }
   }
 
-  /**
-   * Delete record
-   */
-  async destroy({ params, response }: HttpContext) {
+  // Gera um soft delete de um produto
+  async soft_destroy({ params, response }: HttpContext) {
     try {
       const product = await Product.findOrFail(params.id)
       if (!product) {
         return response.status(404).json({ message: 'Product não encontrado' })
       }
-      await product.delete()
-      return response.status(200).json({ message: `Product deletado com sucesso` })
+      await product.merge({ available: false }).save()
+      return response.status(200).json({
+        message: `Realizado soft-delete do produto, coluna available "settada" como false`,
+      })
     } catch (error) {
-      return response.status(400).json({ message: 'Erro ao deletar product' })
+      return response.status(400).json({ message: 'Erro ao gerar o soft-delete do product' })
     }
   }
 }

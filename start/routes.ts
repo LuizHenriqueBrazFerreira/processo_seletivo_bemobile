@@ -34,7 +34,7 @@ router
     router.get('/:id', [ProductsController, 'show']).as('/:id')
     router.post('/register', [ProductsController, 'create']).as('/register')
     router.put('/update/:id', [ProductsController, 'update']).as('/update/:id')
-    router.delete('/delete/:id', [ProductsController, 'destroy']).as('/delete/:id')
+    router.delete('/delete/:id', [ProductsController, 'soft_destroy']).as('/delete/:id')
   })
   .prefix('products')
   .as('products')
