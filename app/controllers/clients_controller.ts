@@ -13,8 +13,6 @@ export default class ClientsController {
   //Método que busca um cliente específico com as vendas relacionadas a ele
   async show({ request, response }: HttpContext) {
     const qs = request.qs()
-    console.log(qs)
-
     // Se não houver um id para busca, retorna um STATUS 400
     if (!qs.id) {
       return response.status(400).json({ message: 'Missing id in URL' })

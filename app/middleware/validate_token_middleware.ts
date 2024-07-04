@@ -7,7 +7,7 @@ export default class ValidateTokenMiddleware {
     const token = ctx.request.header('Authorization')
 
     if (!token) {
-      return ctx.response.send('Token não informado')
+      return ctx.response.status(401).send('Token não informado')
     }
 
     const extractedToken = token.replace('Bearer ', '')
@@ -15,7 +15,7 @@ export default class ValidateTokenMiddleware {
     const { email } = verifyToken(extractedToken)
 
     if (!email) {
-      return ctx.response.send('Token inválido')
+      return ctx.response.status(401).send('Token inválido')
     }
 
     ctx.response.cookie('email', email, {
