@@ -8,9 +8,8 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
+const UsersController = () => import('#controllers/users_controller')
 
-router.get('/', async () => {
-  return {
-    hello: 'world',
-  }
-})
+router.post('/register-user', [UsersController, 'create'])
+router.post('/login', [UsersController, 'index'])
