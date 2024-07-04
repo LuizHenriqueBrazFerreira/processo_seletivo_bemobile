@@ -4,6 +4,7 @@ import hash from '@adonisjs/core/services/hash'
 import { createToken } from '../../utils/jwt.js'
 
 export default class UserController {
+  // Método index responsável por buscar um usuário para realizar o login
   async index({ request, response }: HttpContext) {
     try {
       const data = request.body()

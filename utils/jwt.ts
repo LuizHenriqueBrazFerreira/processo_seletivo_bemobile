@@ -1,6 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret'
+const JWT_SECRET = process.env.JWT_SECRET as string
 
 type PayloadType = {
   id: number

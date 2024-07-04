@@ -12,14 +12,18 @@ export default class ValidateTokenMiddleware {
 
     const extractedToken = token.replace('Bearer ', '')
 
-    const { email } = verifyToken(extractedToken) as any
-    console.log(email)
+    const { email } = verifyToken(extractedToken)
 
     if (!email) {
       return ctx.response.send('Token inválido')
     }
 
-    ctx.request.body().email = email
+    ctx.response.cookie('email', email, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: false,
+      domain: 'localhost',
+    })
 
     const output = await next()
     return output
