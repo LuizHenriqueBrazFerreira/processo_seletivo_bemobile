@@ -10,9 +10,6 @@ export default class ClientsController {
     return response.status(201).json({ message: allClients })
   }
 
-  //Método que cria um novo cliente
-  async create({}: HttpContext) {}
-
   //Método que busca um cliente específico com as vendas relacionadas a ele
   async show({ request, response }: HttpContext) {
     const qs = request.qs()
@@ -72,8 +69,7 @@ export default class ClientsController {
       if (!client) {
         return response.status(404).json({ message: 'Cliente não encontrado' })
       }
-      const clientUpdated = await client.merge(clientData).save()
-      console.log(clientUpdated)
+      await client.merge(clientData).save()
 
       return response.status(200).json({ message: `Cliente foi atualizado com sucesso` })
     } catch (error) {
@@ -85,8 +81,6 @@ export default class ClientsController {
    * Delete record
    */
   async destroy({ params, response }: HttpContext) {
-    console.log(params.id)
-
     try {
       const client = await Client.findByOrFail('id', params.id)
       await client.delete()

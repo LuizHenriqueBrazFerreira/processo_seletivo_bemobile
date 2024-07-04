@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const ProductsController = () => import('#controllers/products_controller')
 const ClientsController = () => import('#controllers/clients_controller')
 const UsersController = () => import('#controllers/users_controller')
 
@@ -24,4 +25,17 @@ router
     router.delete('/delete/:id', [ClientsController, 'destroy']).as('/delete/:id')
   })
   .prefix('clients')
+  .as('clients')
+  .use([middleware.validateToken(), middleware.validateuser()])
+
+router
+  .group(() => {
+    router.get('/', [ProductsController, 'index']).as('/')
+    router.get('/:id', [ProductsController, 'show']).as('/:id')
+    router.post('/register', [ProductsController, 'create']).as('/register')
+    router.put('/update/:id', [ProductsController, 'update']).as('/update/:id')
+    router.delete('/delete/:id', [ProductsController, 'destroy']).as('/delete/:id')
+  })
+  .prefix('products')
+  .as('products')
   .use([middleware.validateToken(), middleware.validateuser()])
