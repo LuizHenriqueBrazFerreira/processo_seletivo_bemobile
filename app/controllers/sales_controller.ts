@@ -4,32 +4,32 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class SalesController {
   /**
-   * Display a list of resource
+   * Rota responsável por listar todas as vendas
    */
-  async index({ response }: HttpContext) {
-    try {
-      const allSales = await Sale.query()
-        .select('user_id', 'client_id', 'product_id', 'total_quantity', 'total_price')
-        .preload('user', (query) => {
-          query.select('email')
-        })
-        .preload('client', (query) => {
-          query.select('name')
-        })
-        .preload('product', (query) => {
-          query.select('product', 'price')
-        })
+  // async index({ response }: HttpContext) {
+  //   try {
+  //     const allSales = await Sale.query()
+  //       .select('user_id', 'client_id', 'product_id', 'total_quantity', 'total_price')
+  //       .preload('user', (query) => {
+  //         query.select('email')
+  //       })
+  //       .preload('client', (query) => {
+  //         query.select('name')
+  //       })
+  //       .preload('product', (query) => {
+  //         query.select('product', 'price')
+  //       })
 
-      return response.status(200).json(allSales)
-    } catch (error) {
-      console.log(error.message)
+  //     return response.status(200).json(allSales)
+  //   } catch (error) {
+  //     console.log(error.message)
 
-      return response.status(404).json({ message: 'Vendas não encontradas' })
-    }
-  }
+  //     return response.status(404).json({ message: 'Vendas não encontradas' })
+  //   }
+  // }
 
   /**
-   * Display form to create a new record
+   * Rota responsável por criar uma nova venda
    */
   async create({ request, response }: HttpContext) {
     try {
@@ -48,57 +48,57 @@ export default class SalesController {
   }
 
   /**
-   * Show individual record
+   * Rota responsável por mostrar uma venda específica
    */
-  async show({ params, response }: HttpContext) {
-    try {
-      const sale = await Sale.query()
-        .select('user_id', 'client_id', 'product_id', 'total_quantity', 'total_price')
-        .where('id', params.id)
-        .preload('user', (query) => {
-          query.select('email')
-        })
-        .preload('client', (query) => {
-          query.select('name')
-        })
-        .preload('product', (query) => {
-          query.select('product', 'price')
-        })
+  // async show({ params, response }: HttpContext) {
+  //   try {
+  //     const sale = await Sale.query()
+  //       .select('user_id', 'client_id', 'product_id', 'total_quantity', 'total_price')
+  //       .where('id', params.id)
+  //       .preload('user', (query) => {
+  //         query.select('email')
+  //       })
+  //       .preload('client', (query) => {
+  //         query.select('name')
+  //       })
+  //       .preload('product', (query) => {
+  //         query.select('product', 'price')
+  //       })
 
-      return response.status(200).json(sale)
-    } catch (error) {
-      return response.status(404).json({ message: 'Venda não encontrada' })
-    }
-  }
+  //     return response.status(200).json(sale)
+  //   } catch (error) {
+  //     return response.status(404).json({ message: 'Venda não encontrada' })
+  //   }
+  // }
 
   /**
-   * Handle form submission for the edit action
+   * Rota responsável por atualizar uma venda
    */
-  async update({ params, request, response }: HttpContext) {
-    try {
-      await Sale.query().where('id', params.id).update(request.body())
-      return response.status(200).json({ message: 'Venda atualizada com sucesso' })
-    } catch (error) {
-      return response.status(404).json({ message: 'Venda não encontrada' })
-    }
-  }
+  // async update({ params, request, response }: HttpContext) {
+  //   try {
+  //     await Sale.query().where('id', params.id).update(request.body())
+  //     return response.status(200).json({ message: 'Venda atualizada com sucesso' })
+  //   } catch (error) {
+  //     return response.status(404).json({ message: 'Venda não encontrada' })
+  //   }
+  // }
 
   /**
-   * Delete record
+   * Rota responsável por deletar uma venda
    */
-  async destroy({ params, response }: HttpContext) {
-    try {
-      const sale = await Sale.findBy('id', params.id)
-      console.log(sale)
+  // async destroy({ params, response }: HttpContext) {
+  //   try {
+  //     const sale = await Sale.findBy('id', params.id)
+  //     console.log(sale)
 
-      if (!sale) {
-        return response.status(404).json({ message: 'Venda não encontrada' })
-      }
-      const saleDeleted = await sale.delete()
-      console.log(saleDeleted)
-      return response.status(204).json({ message: 'Venda deletada com sucesso' })
-    } catch (error) {
-      return response.status(400).json({ message: error.message })
-    }
-  }
+  //     if (!sale) {
+  //       return response.status(404).json({ message: 'Venda não encontrada' })
+  //     }
+  //     const saleDeleted = await sale.delete()
+  //     console.log(saleDeleted)
+  //     return response.status(204).json({ message: 'Venda deletada com sucesso' })
+  //   } catch (error) {
+  //     return response.status(400).json({ message: error.message })
+  //   }
+  // }
 }
