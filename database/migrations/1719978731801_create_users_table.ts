@@ -8,6 +8,7 @@ export default class Users extends BaseSchema {
       table.increments('id')
 
       table.string('email', 255).notNullable().unique()
+
       table.string('password', 180).notNullable()
 
       table.timestamp('created_at')

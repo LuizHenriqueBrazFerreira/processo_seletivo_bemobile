@@ -11,7 +11,7 @@
     "test": "node ace test",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "start:db": "node ace serve --hmr && node ace migration:run && node ace db:seed",
+    "start:db": "node ace migration:run && node ace db:truncate && node ace db:seed",
     "typecheck": "tsc --noEmit"
   },
   "imports": {
@@ -43,6 +43,7 @@
     "@japa/plugin-adonisjs": "^3.0.1",
     "@japa/runner": "^3.1.4",
     "@swc/core": "^1.6.5",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20.14.9",
     "eslint": "^8.57.0",
@@ -59,6 +60,7 @@
     "@adonisjs/lucid": "^21.1.0",
     "@vinejs/vine": "^2.1.0",
     "bcrypt": "^5.1.1",
+    "jsonwebtoken": "9.0.0",
     "luxon": "^3.4.4",
     "mysql2": "^3.10.2",
     "reflect-metadata": "^0.2.2"

@@ -38,4 +38,8 @@ router.use([() => import('@adonisjs/core/bodyparser_middleware')])
  * Named middleware collection must be explicitly assigned to
  * the routes or the routes group.
  */
-export const middleware = router.named({})
+export const middleware = router.named({
+  saleValidator: () => import('#middleware/sale_validator_middleware'),
+  validateuser: () => import('#middleware/validate_user_middleware'),
+  validateToken: () => import('#middleware/validate_token_middleware'),
+})

@@ -19,6 +19,9 @@ export default class Product extends BaseModel {
   @column()
   declare description: string
 
+  @column()
+  declare available: boolean
+
   @hasOne(() => Sale, {
     foreignKey: 'productId',
   })

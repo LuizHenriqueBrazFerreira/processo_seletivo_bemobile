@@ -13,6 +13,4 @@ COPY . .
 
 EXPOSE 3001
 
-ENTRYPOINT [ "npm", "run" ]
-
-CMD [ "start:db" ]
+ENTRYPOINT [ "npm", "run", "dev" ]
