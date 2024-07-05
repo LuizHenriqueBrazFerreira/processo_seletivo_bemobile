@@ -34,6 +34,12 @@ export default class UserController {
     try {
       const data = request.body()
 
+      const userExists = await User.findBy('email', data.email)
+
+      if (userExists) {
+        return response.status(400).json({ message: 'Email já cadastrado' })
+      }
+
       const newUser = await User.create({
         email: data.email,
         password: await hash.make(data.password),
@@ -43,6 +49,8 @@ export default class UserController {
         .status(201)
         .json({ message: 'Usuário cadastrado com sucesso', data: newUser.email })
     } catch (error) {
+      console.log(error.message)
+
       return response.status(400).json({ message: 'Erro ao cadastrar usuário' })
     }
   }

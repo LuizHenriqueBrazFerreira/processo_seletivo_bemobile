@@ -14,20 +14,29 @@ const ProductsController = () => import('#controllers/products_controller')
 const ClientsController = () => import('#controllers/clients_controller')
 const UsersController = () => import('#controllers/users_controller')
 
-router.post('/register-user', [UsersController, 'create'])
-router.post('/login', [UsersController, 'index'])
+router
+  .group(() => {
+    router
+      .post('/register-user', [UsersController, 'create'])
+      .as('/register-user')
+      .as('register-user')
+    router.post('/login', [UsersController, 'index']).as('/login').as('login')
+  })
+  .prefix('users')
+  .as('users')
+  .use(middleware.inputsValidate())
 
 router
   .group(() => {
     router.get('/', [ClientsController, 'index']).as('/')
     router.get('/info', [ClientsController, 'show']).as('/info?id=')
-    router.post('/create', [ClientsController, 'store']).as('/create')
+    router.post('/register', [ClientsController, 'store']).as('/create')
     router.put('/update/:id', [ClientsController, 'update']).as('/update/:id')
     router.delete('/delete/:id', [ClientsController, 'destroy']).as('/delete/:id')
   })
   .prefix('clients')
   .as('clients')
-  .use([middleware.validateToken(), middleware.validateuser()])
+// .use([middleware.validateToken(), middleware.validateuser()])
 
 router
   .group(() => {

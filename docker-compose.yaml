@@ -2,11 +2,13 @@ version: '3.9'
 services:
   backend:
     container_name: teste_backend
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 3001:3001 
     volumes: 
-      - .:/backend/
+      - .:/app/
     depends_on:
       db:
         condition: service_healthy
