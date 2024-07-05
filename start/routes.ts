@@ -43,17 +43,17 @@ router
 
 router
   .group(() => {
-    router.get('/', [SalesController, 'index']).as('/')
-    router.get('/:id', [SalesController, 'show']).as('/:id')
+    // router.get('/', [SalesController, 'index']).as('/')
+    // router.get('/:id', [SalesController, 'show']).as('/:id')
     router
       .post('/register', [SalesController, 'create'])
       .as('/register')
       .use(middleware.saleValidator())
-    router
-      .put('/update/:id', [SalesController, 'update'])
-      .as('/update/:id')
-      .use(middleware.saleValidator())
-    router.delete('/delete/:id', [SalesController, 'destroy']).as('/delete/:id')
+    // router
+    // .put('/update/:id', [SalesController, 'update'])
+    // .as('/update/:id')
+    // .use(middleware.saleValidator())
+    // router.delete('/delete/:id', [SalesController, 'destroy']).as('/delete/:id')
   })
   .prefix('sales')
   .as('sales')
