@@ -7,7 +7,7 @@ export default class ClientsController {
     const allClients = await Client.query()
       .select('name', 'cpf', 'address', 'city', 'country', 'phoneNumber')
       .orderBy('id', 'asc')
-    return response.status(201).json({ message: allClients })
+    return response.status(200).json({ message: allClients })
   }
 
   //Método que busca um cliente específico com as vendas relacionadas a ele
@@ -15,7 +15,7 @@ export default class ClientsController {
     const qs = request.qs()
     // Se não houver um id para busca, retorna um STATUS 400
     if (!qs.id) {
-      return response.status(400).json({ message: 'Missing id in URL' })
+      return response.status(400).json({ message: 'Missing id on URL' })
     }
 
     // Se houver um filtro por data, retorna as vendas do cliente com base nesse filtro
@@ -44,7 +44,7 @@ export default class ClientsController {
       .select('id', 'name', 'cpf', 'address', 'city', 'country', 'phoneNumber')
       .where('id', qs.id)
       .preload('sales')
-    return response.status(201).json({ message: client })
+    return response.status(200).json(client)
   }
 
   // Método para criar um cliente
@@ -63,7 +63,7 @@ export default class ClientsController {
     try {
       const clientData = request.body()
 
-      const client = await Client.findByOrFail('id', params.id)
+      const client = await Client.find('id', params.id)
       if (!client) {
         return response.status(404).json({ message: 'Cliente não encontrado' })
       }
@@ -76,7 +76,7 @@ export default class ClientsController {
   }
 
   /**
-   * Delete record
+   * Deleta um cliente
    */
   async destroy({ params, response }: HttpContext) {
     try {

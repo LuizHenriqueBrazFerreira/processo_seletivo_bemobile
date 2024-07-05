@@ -89,14 +89,13 @@ export default class SalesController {
   // async destroy({ params, response }: HttpContext) {
   //   try {
   //     const sale = await Sale.findBy('id', params.id)
-  //     console.log(sale)
 
   //     if (!sale) {
   //       return response.status(404).json({ message: 'Venda não encontrada' })
   //     }
   //     const saleDeleted = await sale.delete()
   //     console.log(saleDeleted)
-  //     return response.status(204).json({ message: 'Venda deletada com sucesso' })
+  //     return response.status(200).json({ message: 'Venda deletada com sucesso' })
   //   } catch (error) {
   //     return response.status(400).json({ message: error.message })
   //   }

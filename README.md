@@ -27,20 +27,24 @@ do repositório encontra-se da seguinte forma:
 
 ## Iniciando a aplicação
 
- Para dar início a aplicação deve-se inicialemnte iniciar os containers, para isso,
+ Para dar início a aplicação deve-se inicialmente iniciar os containers, para isso,
  basta usar o comando:
 
-```docker-compose up -d --build
+```:
+  docker-compose up -d --build
 ```
 
  Este comando irá iniciar os container da aplicação, os quais são:
 
+```:
 ├── db -> responsável por instanciar o MySQL
 ├── backend -> responsável por instanciar a aplicação em si
+```
 
  Feito a inicialização dos contâiners, deve-se então usar o seguinte comando:
 
-```npm run start:db
+```:
+  npm run start:db
 ```
 
 Realizado essas etapas, a aplicação está pronta para uso, conforme solicitado, as rotas
@@ -111,7 +115,7 @@ para a aplicação são:
 
 As rotas de clientes permitem gerenciar as informações dos clientes da aplicação.
 
-- **GET /clients/index**: Lista todos os clientes cadastrados na aplicação. Esta rota retorna uma lista com todos os clientes, incluindo seus dados como nome, dados
+- **GET /clients/**: Lista todos os clientes cadastrados na aplicação. Esta rota retorna uma lista com todos os clientes, incluindo seus dados como nome, dados
 de onde mora, número de telefone, CEP e ID.
 
 - **GET /clients/info**: Detalha as informações de um cliente específico pelo seu ID. Esta rota é útil para obter todas as informações de um cliente, incluindo dados de contato e histórico de compras. O formato de requisição nessa rota é pela URL, assim caso queira buscar um cliente especifico a rota usada é `clients/info?id=`, é
@@ -119,7 +123,7 @@ possível tambem filtrar por data (mês e ano), assim como por datas maiores ou 
 para ter uma busca pelas compras feitas por aquele cliente exatamente no mês e ano informados ou `clients/info?id={id}&filter_by={ano-mes}&value={less/greater}`, onde
 less é para datas menores que a informada e greater para datas maiores
 
-- **POST /clients/create**: Permite o cadastro de um novo cliente na aplicação. É necessário enviar no corpo da requisição os dados do cliente, como nome, email, e informações de contato.
+- **POST /clients/register**: Permite o cadastro de um novo cliente na aplicação. É necessário enviar no corpo da requisição os dados do cliente, como nome, email, e informações de contato.
 
 - **PUT /clients/update/:id**: Atualiza os dados de um cliente específico pelo seu ID. Esta rota requer que sejam enviados no corpo da requisição os dados do cliente que se deseja atualizar.
 
@@ -127,7 +131,7 @@ less é para datas menores que a informada e greater para datas maiores
 
 ### Produtos
 
-- **GET /products/index**: Lista todos os produtos disponíveis.
+- **GET /products/**: Lista todos os produtos disponíveis.
 - **GET /products/:id**: Detalha um produto específico pelo seu ID.
 - **POST /products/register**: Cria um novo produto. Necessário enviar no corpo da requisição os dados do produto.
 - **PUT /products/update/:id**: Atualiza os dados de um produto específico pelo seu ID.
@@ -190,7 +194,8 @@ to store the data. The repository structure is as follows:
 
 To start the application, you must first initiate the containers by using the command:
 
-``` docker-compose up -d --build
+```:
+ docker-compose up -d --build
 ```
 
 This command will start the application's containers, which are:
@@ -200,7 +205,9 @@ This command will start the application's containers, which are:
 
 After initializing the containers, you should then use the following command:
 
-``` npm run db:start
+```:
+ npm run db:start
+
 ```
 
 Having completed these steps, the application is ready for use. As requested, the routes
