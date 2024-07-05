@@ -25,7 +25,7 @@ do repositório encontra-se da seguinte forma:
 
 ```
 
- -- Iniciando a aplicação --
+## Iniciando a aplicação
 
  Para dar início a aplicação deve-se inicialemnte iniciar os containers, para isso,
  basta usar o comando:
@@ -35,8 +35,8 @@ do repositório encontra-se da seguinte forma:
 
  Este comando irá iniciar os container da aplicação, os quais são:
 
-  |-- db -> responsável por instanciar o MySQL
-  |-- backend -> responsável por instanciar a aplicação em si
+├── db -> responsável por instanciar o MySQL
+├── backend -> responsável por instanciar a aplicação em si
 
  Feito a inicialização dos contâiners, deve-se então usar o seguinte comando:
 
@@ -160,3 +160,156 @@ Para avaliar o funcionamento das rotas de vendas, siga estes passos:
 
 - As rotas de clientes, produtos e vendas só podem ser acessadas por usuários logados.
 - Lembre-se de seguir as boas práticas de segurança, como não expor informações sensíveis e utilizar conexões seguras.
+
+## English Version
+
+Hello, my name is Luiz Henrique, this repository contains the solution proposed for the selection process. It
+consists of a back-end application, made in Adonisjs, v.6, associated with Lucid and using a MySQL database
+to store the data. The repository structure is as follows:
+
+``` Application Structure
+ ├── app/
+ │ ├── controller/
+ │ ├── model/
+ │ └── middleware/
+ ├── database/
+ │ ├── migrations/
+ │ └── seeders/
+ ├── enum/
+ │ ├── client.ts
+ │ ├── product.ts
+ │ └── user.ts
+ ├── start/
+ │ └── routes.ts
+ ├── tests/
+ ├──Dockerfile
+ ├──docker-compose.yaml
+```
+
+## Starting the application
+
+To start the application, you must first initiate the containers by using the command:
+
+``` docker-compose up -d --build
+```
+
+This command will start the application's containers, which are:
+
+├── db -> responsible for instantiating MySQL
+├── backend -> responsible for instantiating the application itself
+
+After initializing the containers, you should then use the following command:
+
+``` npm run db:start
+```
+
+Having completed these steps, the application is ready for use. As requested, the routes
+for the application are:
+
+```:
+  (USERS):
+  
+  User system registration (signup);
+
+  Login with JWT for registered users (login);
+```
+
+```:
+  (CLIENTS):
+
+  List all registered clients (index)
+  only main data should be here;
+  order by id;
+
+  Detail a client and sales to them (show):
+  bring the most recent sales first;
+  possibility to filter sales by month + year;
+  add a client (store);
+
+  Edit a client (update);
+
+  Delete a client and sales to them (delete);
+```
+
+```:
+  (PRODUCTS):
+  List all registered products (index):
+  only main data should be here;
+  order alphabetically.
+  Detail a product (show);
+  Create a product (store);
+  Edit a product (update);
+  Logical deletion ("soft delete") of a product (delete);
+```
+
+```:
+  (SALES):
+
+  register sale of 1 product to 1 client (store).
+
+  P.S: routes for sales were also developed:
+  show all sales (index);
+  show a specific sale (show);
+  update a sale (update);
+  delete a sale (delete)
+
+  These routes, however, are commented out but functional,
+  if there is interest in evaluating their operation, it
+  is necessary to uncomment the lines (remove the "//" before
+  each route and also from each method in sales_controller.ts)
+```
+
+>Note: routes in clients, products, and sales should only be accessible by logged-in users.
+
+## Application Routes
+
+### Clients
+
+Client routes allow managing the application's client information.
+
+- **GET /clients/index**: Lists all clients registered in the application.
+  This route returns a list of all clients, including their data such as name, address, phone number, ZIP code, and ID.
+
+- **GET /clients/info**: Details the information of a specific client by their ID. This route is useful for obtaining all the information of a client, including contact data and purchase history. The request format on this route is through the URL, so if you want to search for a specific client the route used is `clients/info?id=`, it is also possible to filter by date (month and year), as well as by dates greater or less than the one provided, following the standard: `clients/info?id={id}&filter_by={year-month}` to have a search for purchases made by that client exactly in the month and year informed or `clients/info?id={id}&filter_by={year-month}&value={less/greater}`, where less is for dates less than the one informed and greater for dates greater.
+
+- **POST /clients/create**: Allows the registration of a new client in the application. It is necessary to send in the request body the client's data, such as name, email, and contact information.
+
+-**PUT /clients/update/:id**: Updates the data of a specific client by their ID. This route requires that the client's data to be updated be sent in the request body.
+
+-**DELETE /clients/delete/:id**: Performs a logical deletion (soft delete) of a client by their ID. This route does not permanently remove the client's data from the database but marks the client as inactive, preserving their history for future references.
+
+### Products
+
+-**GET /products/index**: Lists all available products.
+-**GET /products/:id**: Details a specific product by its ID.
+-**POST /products/register**: Creates a new product. Necessary to send in the request body the product's data.
+-**PUT /products/update/:id**: Updates the data of a specific product by its ID.
+-**DELETE /products/delete/:id**: Performs a logical deletion (soft delete) of a product by its ID.
+
+### Sales
+
+-**POST /sales/register**: Registers the sale of a product to a client. Necessary to send in the request body the sale's data.
+
+>Note: The routes for sales are currently commented out in the code but are fully functional. To use them, remove the comments (//) from the lines corresponding to the sales routes and the methods in sales_controller.ts. Validations when registering the sale are done in the middleware.
+
+### Users
+
+-**POST /users/register-user**: To start using the application, the user must register, providing an email and password. Each email must be unique, and the application does not allow duplicates.
+
+-**POST /users/login**: After registration, the user must log in to the application. If the user exists, a Bearer token will be returned and must be used in the Authorization header of subsequent requests.
+Authentication
+
+All routes, except /users/register and /users/login, require authentication. The token obtained at login must be included in the Authorization header of the requests, in the format `Bearer <token>`.
+
+### How to Uncomment the Sales Routes
+
+To evaluate the operation of the sales routes, follow these steps:
+
+1. Open the routes.ts file.
+2. Look for the sales routes, which are commented out.
+3. Remove the // from the beginning of each line corresponding to the sales routes and the methods in sales_controller.ts.
+
+### Observations
+
+- Routes for clients, products, and sales can only be accessed by logged-in users.
+- Remember to follow good security practices, such as not exposing sensitive information and using secure connections.
