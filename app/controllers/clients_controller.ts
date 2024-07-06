@@ -50,7 +50,7 @@ export default class ClientsController {
   // Método para criar um cliente
   async store({ request, response }: HttpContext) {
     try {
-      const clientData = request.body()
+      const clientData = request.only(['name', 'cpf', 'address', 'city', 'country', 'phoneNumber'])
       const client = await Client.create(clientData)
       return response.status(201).json({ message: `Cliente ${client.name} cadastrado com sucesso` })
     } catch (error) {
@@ -61,9 +61,9 @@ export default class ClientsController {
   // Método para atualizar um cliente
   async update({ params, request, response }: HttpContext) {
     try {
-      const clientData = request.body()
+      const clientData = request.only(['name', 'cpf', 'address', 'city', 'country', 'phoneNumber'])
 
-      const client = await Client.find('id', params.id)
+      const client = await Client.find(params.id)
       if (!client) {
         return response.status(404).json({ message: 'Cliente não encontrado' })
       }

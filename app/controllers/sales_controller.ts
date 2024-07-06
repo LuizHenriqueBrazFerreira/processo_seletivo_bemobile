@@ -34,7 +34,7 @@ export default class SalesController {
   async create({ request, response }: HttpContext) {
     try {
       const salesData = request.only(['userId', 'clientId', 'productId', 'totalQuantity']) as any
-      const product = (await Product.findBy('id', salesData.productId)) as any
+      const product = (await Product.find(salesData.productId)) as any
 
       const totalPrice = (product.price * salesData.totalQuantity) as number
 

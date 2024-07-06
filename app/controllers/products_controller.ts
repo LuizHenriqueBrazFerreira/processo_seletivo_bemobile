@@ -17,7 +17,7 @@ export default class ProductsController {
   // Cria um novo produto
   async create({ request, response }: HttpContext) {
     try {
-      const productData = request.body()
+      const productData = request.only(['product', 'description', 'price', 'quantity'])
       const product = await Product.create(productData)
       return response.status(201).json({ message: `Product ${product.product} criado com sucesso` })
     } catch (error) {
@@ -41,7 +41,7 @@ export default class ProductsController {
   // Atualiza os dados de um produto
   async update({ params, request, response }: HttpContext) {
     try {
-      const productData = request.body()
+      const productData = request.only(['product', 'description', 'price', 'quantity'])
       const product = await Product.findOrFail(params.id)
       if (!product) {
         return response.status(404).json({ message: 'Product não encontrado' })

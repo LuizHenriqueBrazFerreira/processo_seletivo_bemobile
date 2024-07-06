@@ -123,7 +123,19 @@ possível tambem filtrar por data (mês e ano), assim como por datas maiores ou 
 para ter uma busca pelas compras feitas por aquele cliente exatamente no mês e ano informados ou `clients/info?id={id}&filter_by={ano-mes}&value={less/greater}`, onde
 less é para datas menores que a informada e greater para datas maiores
 
-- **POST /clients/register**: Permite o cadastro de um novo cliente na aplicação. É necessário enviar no corpo da requisição os dados do cliente, como nome, email, e informações de contato.
+- **POST /clients/register**: Permite o cadastro de um novo cliente na aplicação. É necessário enviar no corpo da requisição os dados do cliente, como nome, email, e informações de contato. O padrão para registrar é o seguinte:
+
+```:
+{
+  "name": string,
+  "cpf": string,
+  "address": string,
+  "city": string,
+  "country": string,
+  "phoneNumber": string
+}
+
+```
 
 - **PUT /clients/update/:id**: Atualiza os dados de um cliente específico pelo seu ID. Esta rota requer que sejam enviados no corpo da requisição os dados do cliente que se deseja atualizar.
 
@@ -134,12 +146,33 @@ less é para datas menores que a informada e greater para datas maiores
 - **GET /products/**: Lista todos os produtos disponíveis.
 - **GET /products/:id**: Detalha um produto específico pelo seu ID.
 - **POST /products/register**: Cria um novo produto. Necessário enviar no corpo da requisição os dados do produto.
+
+```:
+{
+  "product": string,
+  "description": string,
+  "price": string,
+  "quantity": number
+}
+
+```
+
 - **PUT /products/update/:id**: Atualiza os dados de um produto específico pelo seu ID.
 - **DELETE /products/delete/:id**: Realiza a exclusão lógica (soft delete) de um produto pelo seu ID.
 
 ### Vendas
 
 - **POST /sales/register**: Registra a venda de um produto para um cliente. Necessário enviar no corpo da requisição os dados da venda.
+
+```:
+{
+  "userId": number,
+  "clientId": number,
+  "productId": number,
+  "totalQuantity": number
+}
+
+```
 
 > **Nota**: As rotas para vendas estão atualmente comentadas no código, mas são totalmente funcionais. Para utilizá-las, remova os comentários (`//`) das linhas correspondentes nas definições de rotas e nos métodos em `sales_controller.ts`. As validações na hora de realizar o cadastro da venda estão feitas no middleware.
 
@@ -164,6 +197,12 @@ Para avaliar o funcionamento das rotas de vendas, siga estes passos:
 
 - As rotas de clientes, produtos e vendas só podem ser acessadas por usuários logados.
 - Lembre-se de seguir as boas práticas de segurança, como não expor informações sensíveis e utilizar conexões seguras.
+
+## Testes
+
+Para executar os testes, deve-se inicialmente usar o comando `npm run start:db` para criar as tabelas e aplicar os seeders iniciais, além disso não pode ser aberto uma porta no backend, pois ocorrerá um conflito nas portas e impedindo assim a conexão com a base de dados.
+
+Feito isso, basta executar o comando `node ace test` para executar todos os testes da aplicação.
 
 ## English Version
 
@@ -279,7 +318,19 @@ Client routes allow managing the application's client information.
 
 - **GET /clients/info**: Details the information of a specific client by their ID. This route is useful for obtaining all the information of a client, including contact data and purchase history. The request format on this route is through the URL, so if you want to search for a specific client the route used is `clients/info?id=`, it is also possible to filter by date (month and year), as well as by dates greater or less than the one provided, following the standard: `clients/info?id={id}&filter_by={year-month}` to have a search for purchases made by that client exactly in the month and year informed or `clients/info?id={id}&filter_by={year-month}&value={less/greater}`, where less is for dates less than the one informed and greater for dates greater.
 
-- **POST /clients/create**: Allows the registration of a new client in the application. It is necessary to send in the request body the client's data, such as name, email, and contact information.
+- **POST /clients/register**: Allows the registration of a new client in the application. It is necessary to send in the request body the client's data, such as name, email, and contact information. The pattern for registration is as follows:
+
+```:
+{
+  "name": string,
+  "cpf": string,
+  "address": string,
+  "city": string,
+  "country": string,
+  "phoneNumber": string
+}
+
+```
 
 -**PUT /clients/update/:id**: Updates the data of a specific client by their ID. This route requires that the client's data to be updated be sent in the request body.
 
@@ -290,12 +341,33 @@ Client routes allow managing the application's client information.
 -**GET /products/index**: Lists all available products.
 -**GET /products/:id**: Details a specific product by its ID.
 -**POST /products/register**: Creates a new product. Necessary to send in the request body the product's data.
+
+```:
+{
+  "product": string,
+  "description": string,
+  "price": string,
+  "quantity": number
+}
+
+```
+
 -**PUT /products/update/:id**: Updates the data of a specific product by its ID.
 -**DELETE /products/delete/:id**: Performs a logical deletion (soft delete) of a product by its ID.
 
 ### Sales
 
 -**POST /sales/register**: Registers the sale of a product to a client. Necessary to send in the request body the sale's data.
+
+```:
+{
+  "userId": number,
+  "clientId": number,
+  "productId": number,
+  "totalQuantity": number
+}
+
+```
 
 >Note: The routes for sales are currently commented out in the code but are fully functional. To use them, remove the comments (//) from the lines corresponding to the sales routes and the methods in sales_controller.ts. Validations when registering the sale are done in the middleware.
 
@@ -320,3 +392,9 @@ To evaluate the operation of the sales routes, follow these steps:
 
 - Routes for clients, products, and sales can only be accessed by logged-in users.
 - Remember to follow good security practices, such as not exposing sensitive information and using secure connections.
+
+## Tests
+
+To run the tests, you must first use the command `npm run start:db` to create the tables and apply the initial seeders. Additionally, a port on the backend cannot be opened, as this will cause a port conflict and thus prevent connection to the database.
+
+Once this is done, simply execute the command `node ace test` to run all the application's tests.
