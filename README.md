@@ -196,7 +196,6 @@ Para avaliar o funcionamento das rotas de vendas, siga estes passos:
 ## Observações
 
 - As rotas de clientes, produtos e vendas só podem ser acessadas por usuários logados.
-- Lembre-se de seguir as boas práticas de segurança, como não expor informações sensíveis e utilizar conexões seguras.
 
 ## Testes
 
@@ -391,7 +390,6 @@ To evaluate the operation of the sales routes, follow these steps:
 ### Observations
 
 - Routes for clients, products, and sales can only be accessed by logged-in users.
-- Remember to follow good security practices, such as not exposing sensitive information and using secure connections.
 
 ## Tests
 
