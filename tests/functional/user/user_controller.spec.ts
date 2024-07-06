@@ -8,6 +8,7 @@ test.group('User user controller', (group) => {
       email: 'email@email.com',
       password: '12345678',
     })
+    console.log(response)
 
     response.assertStatus(201)
     response.assertBody({
